@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login</title>
+  <title>School Work</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+    }
+
+    #loginContainer {
+      margin-top: 20vh;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    iframe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
 
-<h2>Enter Password</h2>
-<input type="password" id="password">
-<button onclick="login()">Login</button>
+<div id="loginContainer">
+  <h2>Enter Password</h2>
+  <input type="password" id="password">
+  <button onclick="login()">Login</button>
+  <p id="message" style="color:red;"></p>
+</div>
 
-<p id="message" style="color:red;"></p>
-<div id="embeddedSite"></div>
+<iframe id="embeddedSite"></iframe>
 
 <script>
 async function login() {
@@ -24,20 +56,17 @@ async function login() {
   const result = await response.json();
 
   if (result.success) {
-    document.getElementById("message").innerText = "";
-    
-    const iframe = document.createElement("iframe");
-    iframe.src = result.link; 
-    iframe.width = "100%";
-    iframe.height = "800";
-    iframe.style.border = "none";
 
-    const container = document.getElementById("embeddedSite");
-    container.innerHTML = "";
-    container.appendChild(iframe);
+    document.getElementById("loginContainer").style.display = "none";
+
+    const iframe = document.getElementById("embeddedSite");
+    iframe.src = result.link;
+    iframe.style.display = "block";
+
+    document.body.style.overflow = "hidden";
+
   } else {
     document.getElementById("message").innerText = "Wrong password";
-    document.getElementById("embeddedSite").innerHTML = "";
   }
 }
 </script>
