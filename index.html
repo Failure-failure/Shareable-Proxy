@@ -9,13 +9,14 @@
 <input type="password" id="password">
 <button onclick="login()">Login</button>
 
-<p id="message"></p>
+<p id="message" style="color:red;"></p>
+<div id="embeddedSite"></div>
 
 <script>
 async function login() {
   const password = document.getElementById("password").value;
 
-  const response = await fetch("https://script.google.com/macros/s/AKfycbwt3ailYnbPzWSulc_GLwqy1amnZaAhWE5czV9ja5swBvIylGjaV7T6M_XZfxICWQTSbQ/exec", {
+  const response = await fetch("https://script.google.com/macros/s/AKfycbzsrg1Dw56HdGvaoFg19YVCFoF7jAD56kwDehn8E6cV1qHqVB7iUE0ihRlH8EtCOsxDvA/exec", {
     method: "POST",
     body: JSON.stringify({ password })
   });
@@ -23,9 +24,20 @@ async function login() {
   const result = await response.json();
 
   if (result.success) {
-    window.location.href = result.link;
+    document.getElementById("message").innerText = "";
+    
+    const iframe = document.createElement("iframe");
+    iframe.src = result.link; 
+    iframe.width = "100%";
+    iframe.height = "800";
+    iframe.style.border = "none";
+
+    const container = document.getElementById("embeddedSite");
+    container.innerHTML = "";
+    container.appendChild(iframe);
   } else {
     document.getElementById("message").innerText = "Wrong password";
+    document.getElementById("embeddedSite").innerHTML = "";
   }
 }
 </script>
