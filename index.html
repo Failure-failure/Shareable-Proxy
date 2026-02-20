@@ -49,7 +49,7 @@
 async function login() {
   const password = document.getElementById("password").value;
 
-  const response = await fetch("https://script.google.com/macros/s/AKfycbzsrg1Dw56HdGvaoFg19YVCFoF7jAD56kwDehn8E6cV1qHqVB7iUE0ihRlH8EtCOsxDvA/exec", {
+  const response = await fetch("https://script.google.com/macros/s/AKfycbw4WBBqXoPdhKo1DquKzGsrpe-qbY1snK6od0C1DEsMhUuoTnFl9Xd8ZuTEB1dzkTjpNg/exec", {
     method: "POST",
     body: JSON.stringify({ password })
   });
